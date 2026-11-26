@@ -305,13 +305,23 @@ with st.sidebar:
 left, right = st.columns([2, 1])
 with left:
     st.subheader("Live camera")
-    ctx = webrtc_streamer(
-        key="sign-language-camera",
-        mode=WebRtcMode.SENDRECV,
-        video_processor_factory=lambda: processor,
-        media_stream_constraints={"video": True, "audio": False},
-        async_processing=True,
-    )
+  ctx = webrtc_streamer(
+    key="sign-language-camera",
+    mode=WebRtcMode.SENDRECV,
+    video_processor_factory=lambda: processor,
+    media_stream_constraints={
+        "video": True,
+        "audio": False
+    },
+    rtc_configuration={
+        "iceServers": [
+            {
+                "urls": ["stun:stun.l.google.com:19302"]
+            }
+        ]
+    },
+    async_processing=True,
+)
     st.caption("Allow camera access in your browser. Use HTTPS (Streamlit Cloud provides it).")
 
 with right:
