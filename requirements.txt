@@ -1,10 +1,10 @@
-streamlit>=1.35,<2
-streamlit-webrtc>=0.47
+streamlit==1.41.1
+streamlit-webrtc==0.47.9
+streamlit-autorefresh==1.0.1
 mediapipe==0.10.21
 numpy==1.26.4
-opencv-python-headless
+protobuf==4.25.8
 av
 scikit-learn
 joblib
 gTTS
-streamlit-autorefresh
