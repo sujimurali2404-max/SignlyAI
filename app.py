@@ -266,7 +266,6 @@ class SignProcessor(VideoProcessorBase):
 st.title("🤟 Sign Language Detection & Speech")
 st.caption("Real-time hand-sign recognition using MediaPipe and a Random Forest classifier.")
 # Refresh the dashboard so predictions from the camera worker appear without a button click.
-st_autorefresh(interval=800, key="sign_status_refresh")
 
 if "processor" not in st.session_state:
     st.session_state.processor = SignProcessor()
