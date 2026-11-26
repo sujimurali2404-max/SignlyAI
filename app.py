@@ -258,12 +258,6 @@ class SignProcessor(VideoProcessorBase):
                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2, cv2.LINE_AA
             )
         return av.VideoFrame.from_ndarray(image, format="bgr24")
-        
-class CameraTestProcessor(VideoProcessorBase):
-    def recv(self, frame):
-        return frame
-
-
 
 # ------------------------------------------------------------
 # STREAMLIT USER INTERFACE
@@ -310,13 +304,14 @@ with st.sidebar:
 left, right = st.columns([2, 1])
 
 
+
 with left:
-    st.subheader("Camera Test")
+    st.subheader("Live camera")
 
     ctx = webrtc_streamer(
-        key="camera-test",
+        key="sign-language-camera",
         mode=WebRtcMode.SENDRECV,
-        video_processor_factory=CameraTestProcessor,
+        video_processor_factory=lambda: processor,
         media_stream_constraints={
             "video": True,
             "audio": False
@@ -326,7 +321,14 @@ with left:
                 {"urls": ["stun:stun.l.google.com:19302"]}
             ]
         },
+        async_processing=True,
     )
+
+    st.caption(
+        "Allow camera access in your browser. "
+        "Use HTTPS for camera access."
+    )
+
 
 with right:
     st.subheader("Detection result")
